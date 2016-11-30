@@ -24,7 +24,7 @@
 @tag "spring"
 @tag "spring-boot"
 @tag "spring-rest"
-@description "Creates a new Spring Boot Rest Service project"
+@description "creates a new Spring Boot Rest Service project"
 @generator
 editor NewSpringBootRestService
 
