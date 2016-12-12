@@ -64,7 +64,7 @@ param version: @semantic_version
 @description "Description of the new project"
 @displayName "description"
 @validInput "Free Text"
-param description: .*
+param description: ^.*$
 
 @default "com.myorg"
 @displayName "Root Package"
@@ -106,7 +106,7 @@ param project_name: @project_name
 @description "Description of the new project"
 @displayName "description"
 @validInput "Free Text"
-param description: .*
+param description: ^.*$
 
 let template = "readme.vm"
 
