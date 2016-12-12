@@ -1,0 +1,20 @@
+---
+kind: "operation"
+client: "rug-cli 0.16.6"
+editor:
+  name: "atomist-rugs.travis-editors.EnableTravisForRugArchiveDSL"
+  group: "atomist-rugs"
+  artifact: "travis-editors"
+  version: "0.4.0"
+  origin:
+    repo: "atomist-rugs/travis-editors.git"
+    branch: "master"
+    sha: "ffa56d6"
+  parameters:
+    - "repo_slug": "atomist-rugs/spring-boot-rest-service"
+    - "org": ".org"
+    - "github_token": "4**************************************b"
+    - "maven_base_url": "https://atomist.jfrog.io/atomist"
+    - "maven_user": "t************h"
+    - "maven_token": "A***********************************************************************i"
+

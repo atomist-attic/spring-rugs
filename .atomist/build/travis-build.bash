@@ -1,9 +1,10 @@
 #!/bin/bash
+# test and publish rug archive
 
 set -o pipefail
 
 declare Pkg=travis-build
-declare Version=0.1.0
+declare Version=0.3.0
 
 function msg() {
     echo "$Pkg: $*"
@@ -13,6 +14,7 @@ function err() {
     msg "$*" 1>&2
 }
 
+# usage: main "$@"
 function main () {
     local formula_url=https://raw.githubusercontent.com/atomist/homebrew-tap/master/Formula/rug-cli.rb
     local formula
@@ -23,7 +25,7 @@ function main () {
     fi
 
     local version
-    version=$(echo "$formula" | grep -o  '\([0-9]*\.[0-9]*\.[0-9]*\)' | head -n1)
+    version=$(echo "$formula" | sed -n '/^ *url /s,.*/\([0-9]*\.[0-9]*\.[0-9]*\)/.*,\1,p')
     if [[ $? -ne 0 || ! $version ]]; then
         err "failed to parse brew formula for version: $version"
         err "$formula"
@@ -39,9 +41,9 @@ function main () {
             return 1
         fi
 
-        local rug_cli_url=https://atomist.jfrog.io/atomist/libs-release/com/atomist/rug-cli/$version/rug-cli-$version-bin.tar.gz
+        local rug_cli_url=https://github.com/atomist/rug-cli/releases/download/$version/rug-cli-$version-bin.tar.gz
         local rug_cli_tgz=$HOME/.atomist/rug-cli-$version.tar.gz
-        if ! curl -s -f -o "$rug_cli_tgz" "$rug_cli_url"; then
+        if ! curl -s -f -L -o "$rug_cli_tgz" "$rug_cli_url"; then
             err "failed to download rug CLI from $rug_cli_url"
             return 1
         fi
@@ -51,27 +53,60 @@ function main () {
             return 1
         fi
     fi
-    rug="$rug -qX"
+    rug="$rug -qurX"
 
-    msg "running tests"
-    $rug test
-
-    msg "installing archive"
-    $rug install
-
-    local archive_version project_version cli_yml_url
-    archive_version=$(awk -F: '$1 == "version" { print $2 }' .atomist/manifest.yml | sed 's/[^.0-9]//g')
-    if [[ $? -ne 0 || ! $archive_version ]]; then
-        err "failed to extract archive version from manifest: $archive_version"
+    local build_dir=.atomist/build
+    local cli_user=$HOME/.atomist/cli.yml
+    if ! install --mode=0600 "$build_dir/cli-build.yml" "$cli_user"; then
+        err "failed to install build cli.yml"
         return 1
     fi
+    trap "rm -f $cli_user" RETURN
+
+    if [[ -f .atomist/package.json ]]; then
+        msg "running npm install"
+        if ! ( cd .atomist && npm install ); then
+            err "npm install failed"
+            return 1
+        fi
+    fi
+
+    msg "running tests"
+    if ! $rug test; then
+        err "rug test failed"
+        return 1
+    fi
+
+    msg "installing archive"
+    if ! $rug install; then
+        err "rug install failed"
+        return 1
+    fi
+
+    [[ $TRAVIS_PULL_REQUEST == false ]] || return 0
+
+    local archive_version
+    local manifest=.atomist/manifest.yml package=.atomist/package.json
+    if [[ -f $manifest ]]; then
+        archive_version=$(awk -F: '$1 == "version" { print $2 }' "$manifest" | sed 's/[^.0-9]//g')
+    elif [[ -f $package ]]; then
+        archive_version=$(jq --raw-output --exit-status .version "$package")
+    else
+        err "no manifest.yml or package.json in archive"
+        return 1
+    fi
+    if [[ $? -ne 0 || ! $archive_version ]]; then
+        err "failed to extract archive version: $archive_version"
+        return 1
+    fi
+    local project_version cli_yml
     if [[ $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         if [[ $archive_version != $TRAVIS_TAG ]]; then
             err "archive version ($archive_version) does not match git tag ($TRAVIS_TAG)"
             return 1
         fi
         project_version=$TRAVIS_TAG
-        cli_yml_url=https://atomist.jfrog.io/atomist/rugs-release/cli.yml
+        cli_yml=$build_dir/cli-release.yml
     else
         local timestamp
         timestamp=$(date +%Y%m%d%H%M%S)
@@ -80,17 +115,17 @@ function main () {
             return 1
         fi
         project_version=$archive_version-$timestamp
-        cli_yml_url=https://atomist.jfrog.io/atomist/rugs-dev/cli.yml
+        cli_yml=$build_dir/cli-dev.yml
     fi
     msg "branch: $TRAVIS_BRANCH"
     msg "archive version: $project_version"
-    if ! curl -s -f -o $HOME/.atomist/cli.yml "$cli_yml_url"; then
-        err "failed to download $cli_yml_url"
-        return 1
-    fi
 
-    [[ $TRAVIS_PULL_REQUEST == false ]] || return 0
     if [[ $TRAVIS_BRANCH == master || $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        if ! install --mode=0600 "$cli_yml" "$cli_user"; then
+            err "failed to install $cli_yml"
+            return 1
+        fi
+
         msg "publishing archive"
         if ! $rug publish -a "$project_version"; then
             err "failed to publish archive $project_version"
