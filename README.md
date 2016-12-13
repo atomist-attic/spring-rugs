@@ -34,6 +34,8 @@ Name | Required | Default | Description
 `root_package` | No | com.myorg | The root package for the generated service class.
 `service_class_name` | No | MyService | Name for the generated service class.
 
+[semver]: http://semver.org
+
 #### Running
 
 Run it as follows:
