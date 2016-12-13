@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright © 2016 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,12 @@
 	Parameters from the editors used will propagate to
 	entry point, except for old_class and old_package, which are overridden.
 */
+
+@description "Creates a new Spring Boot Rest Service project"
 @tag "java"
 @tag "spring"
 @tag "spring-boot"
 @tag "spring-rest"
-@description "Creates a new Spring Boot Rest Service project"
 @generator
 editor NewSpringBootRestService
 
@@ -33,51 +34,56 @@ uses atomist-rugs.common-editors.PackageMove
 uses atomist-rugs.common-editors.ClassRenamer
 uses atomist-rugs.common-editors.RemoveApacheSoftwareLicense20
 
-@maxLength 21
-@description "Name of your new project."
 @displayName "Project Name"
+@description "Name of your new project"
+@validInput "A valid GitHub repo name containing only alphanumeric, ., -, and _ characters and 21 characters or less to avoid Slack truncating the name when creating a channel for the repo"
+@minLength 1
+@maxLength 21
 param project_name: @project_name
 
-@default "myartifact"
-@optional
-@maxLength 21
-@description "A valid Maven Artifact ID, often used to specify the output of your project"
 @displayName "Maven Artifact ID"
+@description "Maven artifact identifier, i.e., the name of the jar without the version, it is often the same as the project name"
+@validInput "A valid Maven artifact ID, which starts with a lower-case letter and contains only alphanumeric, -, and _ characters"
+@minLength 1
+@maxLength 21
+@optional
+@default "myartifact"
 param artifact_id: @artifact_id
 
-@default "mygroup"
-@description "Group id: Used by Maven"
-@optional
 @displayName "Group ID"
-@validInput "A valid Maven Group ID, often used to indicate your company, group or open source project"
+@description "Maven group identifier, often used to provide a namespace for your project, e.g., com.pany.team"
+@validInput "A valid Maven group ID, which starts with a letter, -, or _ and contains only alphanumeric, -, and _ characters and may having leading period separated identifiers starting with letters or underscores and containing only alphanumeric and _ characters."
+@optional
+@default "mygroup"
 param group_id: @group_id
 
-@default "0.0.1-SNAPSHOT"
-@displayName "Semantic Version"
+@displayName "Version"
+@description "Initial version of the project, e.g., 1.2.3-SNAPSHOT"
+@validInput "A valid semantic version, http://semver.org"
 @optional
-@description "A Semantic Version number of the form: MAJOR.MINOR.PATCH"
-@validInput "MAJOR.MINOR.PATCH"
+@default "0.1.0-SNAPSHOT"
 param version: @semantic_version
 
+@displayName "Project Description"
+@description "Short descriptive test describing the new project"
+@minLength 1
+@validInput "Free text"
+@optional
 @default "My new project"
-@optional
-@description "Description of the new project"
-@displayName "description"
-@validInput "Free Text"
-param description: ^.*$
+param description: @any
 
-@default "com.myorg"
 @displayName "Root Package"
+@description "Root package for your generated source, often this will be namespaced under the group ID"
+@validInput "A valid Java package name, which consists of period-separated identifiers which have only alphanumeric characters, $ and _ and do not start with a number"
 @optional
-@description "Root package for your generated source"
-@validInput "A valid Java package name, i.e. com.myorg"
+@default "com.myorg"
 param root_package: @java_package
 
-@default "MyService"
-@optional
-@description "New name for the initial service class"
 @displayName "Class Name"
-@validInput "Java Class names may contain alphanumeric characters, $ and _, i.e. MyService"
+@description "Name for the service class"
+@validInput "A valid Java class name, which contains only alphanumeric characters, $ and _ and does not start with a number"
+@optional
+@default "MyService"
 param service_class_name: @java_class
 
 # Pattern to replace in old class name.
@@ -97,16 +103,17 @@ RemoveApacheSoftwareLicense20
 @description "Switches READMEs replacing markers with a set of parameters"
 editor SwitchReadmes
 
-@description "Name of the new project"
-@displayName "Name"
+@displayName "Project Name"
+@description "Name of your new project"
+@validInput "A valid GitHub repo name containing only alphanumeric, ., -, and _ characters and 21 characters or less to avoid Slack truncating the name when creating a channel for the repo"
+@minLength 1
+@maxLength 21
 param project_name: @project_name
 
-@default ""
-@optional
-@description "Description of the new project"
-@displayName "description"
-@validInput "Free Text"
-param description: ^.*$
+@displayName "Project Description"
+@description "Short descriptive test describing the new project"
+@validInput "Free text"
+param description: @any
 
 let template = "readme.vm"
 

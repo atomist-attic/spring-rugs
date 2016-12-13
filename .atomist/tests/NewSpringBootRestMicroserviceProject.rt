@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright © 2016 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 scenario NewSpringBootRestService should pass smoke test
 
 let project_name = "MyService"
@@ -35,15 +36,15 @@ when
 
 then
   fileExists { "src/main/java/com/foo/bar/" + service_class_name + "Application.java" }
-  and fileExists { "src/test/java/com/foo/bar/" + service_class_name + "ApplicationTests.java" }
-  and fileContains pom_path artifact_id
-  and fileContains pom_path version
-  and fileContains readme_path project_name
-  and fileContains readme_path description
-  and fileExists props_file
-  and fileContains props_file "server.port=8080"
-  and fileContains readme_path "Created by Atomist. Need Help?"
-  and { !result.fileExists("LICENSE") }
+    and fileExists { "src/test/java/com/foo/bar/" + service_class_name + "ApplicationTests.java" }
+    and fileContains pom_path artifact_id
+    and fileContains pom_path version
+    and fileContains readme_path project_name
+    and fileContains readme_path description
+    and fileExists props_file
+    and fileContains props_file "server.port=8080"
+    and fileContains readme_path "Need Help?"
+    and { !result.fileExists("LICENSE") }
 
 
 scenario NewSpringBootRestService without description should pass smoke test
@@ -67,10 +68,10 @@ when
 
 then
   fileExists { "src/main/java/com/foo/bar/" + service_class_name + "Application.java" }
-  and fileExists { "src/test/java/com/foo/bar/" + service_class_name + "ApplicationTests.java" }
-  and fileContains pom_path artifact_id
-  and fileContains pom_path version
-  and fileContains readme_path project_name
-  and fileExists props_file
-  and fileContains props_file "server.port=8080"
-  and { !result.fileExists("LICENSE") }
+    and fileExists { "src/test/java/com/foo/bar/" + service_class_name + "ApplicationTests.java" }
+    and fileContains pom_path artifact_id
+    and fileContains pom_path version
+    and fileContains readme_path project_name
+    and fileExists props_file
+    and fileContains props_file "server.port=8080"
+    and { !result.fileExists("LICENSE") }
