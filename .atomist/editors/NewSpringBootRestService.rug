@@ -21,7 +21,7 @@
 	entry point, except for old_class and old_package, which are overridden.
 */
 
-@description "Creates a new Spring Boot Rest Service project"
+@description "creates a new Spring Boot Rest Service project"
 @tag "java"
 @tag "spring"
 @tag "spring-boot"
@@ -35,15 +35,15 @@ uses atomist-rugs.common-editors.ClassRenamer
 uses atomist-rugs.common-editors.RemoveApacheSoftwareLicense20
 
 @displayName "Project Name"
-@description "Name of your new project"
-@validInput "A valid GitHub repo name containing only alphanumeric, ., -, and _ characters and 21 characters or less to avoid Slack truncating the name when creating a channel for the repo"
+@description "name of your new project"
+@validInput "a valid GitHub repo name containing only alphanumeric, ., -, and _ characters and 21 characters or less to avoid Slack truncating the name when creating a channel for the repo"
 @minLength 1
 @maxLength 21
 param project_name: @project_name
 
 @displayName "Maven Artifact ID"
 @description "Maven artifact identifier, i.e., the name of the jar without the version, it is often the same as the project name"
-@validInput "A valid Maven artifact ID, which starts with a lower-case letter and contains only alphanumeric, -, and _ characters"
+@validInput "a valid Maven artifact ID, which starts with a lower-case letter and contains only alphanumeric, -, and _ characters"
 @minLength 1
 @maxLength 21
 @optional
@@ -52,36 +52,36 @@ param artifact_id: @artifact_id
 
 @displayName "Group ID"
 @description "Maven group identifier, often used to provide a namespace for your project, e.g., com.pany.team"
-@validInput "A valid Maven group ID, which starts with a letter, -, or _ and contains only alphanumeric, -, and _ characters and may having leading period separated identifiers starting with letters or underscores and containing only alphanumeric and _ characters."
+@validInput "a valid Maven group ID, which starts with a letter, -, or _ and contains only alphanumeric, -, and _ characters and may having leading period separated identifiers starting with letters or underscores and containing only alphanumeric and _ characters."
 @optional
 @default "mygroup"
 param group_id: @group_id
 
 @displayName "Version"
-@description "Initial version of the project, e.g., 1.2.3-SNAPSHOT"
-@validInput "A valid semantic version, http://semver.org"
+@description "initial version of the project, e.g., 1.2.3-SNAPSHOT"
+@validInput "a valid semantic version, http://semver.org"
 @optional
 @default "0.1.0-SNAPSHOT"
 param version: @semantic_version
 
 @displayName "Project Description"
-@description "Short descriptive test describing the new project"
+@description "short descriptive text describing the new project"
 @minLength 1
-@validInput "Free text"
+@validInput "free text"
 @optional
 @default "My new project"
 param description: @any
 
 @displayName "Root Package"
-@description "Root package for your generated source, often this will be namespaced under the group ID"
-@validInput "A valid Java package name, which consists of period-separated identifiers which have only alphanumeric characters, $ and _ and do not start with a number"
+@description "root package for your generated source, often this will be namespaced under the group ID"
+@validInput "a valid Java package name, which consists of period-separated identifiers which have only alphanumeric characters, $ and _ and do not start with a number"
 @optional
 @default "com.myorg"
 param root_package: @java_package
 
 @displayName "Class Name"
-@description "Name for the service class"
-@validInput "A valid Java class name, which contains only alphanumeric characters, $ and _ and does not start with a number"
+@description "name for the service class"
+@validInput "a valid Java class name, which contains only alphanumeric characters, $ and _ and does not start with a number"
 @optional
 @default "MyService"
 param service_class_name: @java_class
@@ -100,7 +100,7 @@ AddCreationDateToReadme
 RemoveApacheSoftwareLicense20
 
 
-@description "Switches READMEs replacing markers with a set of parameters"
+@description "switches READMEs replacing markers with a set of parameters"
 editor SwitchReadmes
 
 @displayName "Project Name"
@@ -111,8 +111,8 @@ editor SwitchReadmes
 param project_name: @project_name
 
 @displayName "Project Description"
-@description "Short descriptive test describing the new project"
-@validInput "Free text"
+@description "short descriptive test describing the new project"
+@validInput "free text"
 param description: @any
 
 let template = "readme.vm"
@@ -120,7 +120,7 @@ let template = "readme.vm"
 with project
 	do merge template to "README.md"
 
-@description "Adds a creation date to the README.md"
+@description "adds a creation date to the README.md"
 editor AddCreationDateToReadme
 
 with file when path = "README.md"
