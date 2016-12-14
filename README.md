@@ -4,10 +4,11 @@
 [![Slack Status](https://join.atomist.com/badge.svg)](https://join.atomist.com)
 
 This [Rug][rug] archive contains a Generator for a [Spring Boot][boot]
-Rest Service project.
+[Rest][rest] Service project.
 
 [rug]: http://docs.atomist.com/
 [boot]: https://projects.spring.io/spring-boot/
+[rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 
 ## Rugs
 
@@ -16,6 +17,7 @@ Rest Service project.
 The NewSpringBootRestService Generator creates a new [Spring
 Boot][boot] [REST][rest] service project.
 
+[boot]: https://projects.spring.io/spring-boot/
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 
 #### Prerequisites
@@ -24,7 +26,7 @@ There are no prerequisites to running this generator.
 
 #### Parameters
 
-To run this editor, you must supply the following parameters.
+To run this generator you must supply the following parameters.
 
 Name | Required | Default | Description
 -----|----------|---------|------------
