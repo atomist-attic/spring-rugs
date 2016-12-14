@@ -3,5 +3,5 @@ artifact: spring-boot-rest-service
 version: "0.3.0"
 requires: "[0.5.4,1.0.0)"
 dependencies:
-- "atomist-rugs:common-editors:0.2.0"
+- "atomist-rugs:common-editors:0.3.0"
 extensions:
