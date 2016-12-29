@@ -75,3 +75,23 @@ then
     and fileExists props_file
     and fileContains props_file "server.port=8080"
     and { !result.fileExists("LICENSE") }
+
+
+scenario NewSpringBootRestService should fail when given an invalid parameter
+
+let project_name = "MyService"
+let artifact_id = "foo"
+let root_package = "com.foo.bar"
+let version = "not.valid.version"
+let service_class_name = "MyTest"
+let props_file = "src/main/resources/application.properties"
+let group_id = "somegroup"
+
+given
+  ArchiveRoot
+
+when
+  NewSpringBootRestService
+
+then
+  InvalidParameters
