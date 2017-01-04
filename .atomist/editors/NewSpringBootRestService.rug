@@ -117,11 +117,11 @@ param description: @any
 
 let template = "readme.vm"
 
-with project
+with Project
 	do merge template to "README.md"
 
 @description "adds a creation date to the README.md"
 editor AddCreationDateToReadme
 
-with file when path = "README.md"
+with File when path = "README.md"
   do replace "{{creation_date}}" { new Date().toISOString().split('T')[0] }
