@@ -33,6 +33,8 @@ uses atomist-rugs.common-editors.PomParameterizer
 uses atomist-rugs.common-editors.PackageMove
 uses atomist-rugs.common-editors.ClassRenamer
 uses atomist-rugs.common-editors.RemoveApacheSoftwareLicense20
+uses atomist-rugs.common-editors.RemoveChangeLog
+uses atomist-rugs.common-editors.RemoveCodeOfConduct
 
 @displayName "Project Name"
 @description "name of your new project"
@@ -98,6 +100,8 @@ PackageMove new_package = root_package
 ClassRenamer new_class = service_class_name
 AddCreationDateToReadme
 RemoveApacheSoftwareLicense20
+RemoveChangeLog
+RemoveCodeOfConduct
 
 
 @description "switches READMEs replacing markers with a set of parameters"
