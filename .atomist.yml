@@ -31,3 +31,16 @@ executor:
     branch: "n/a"
     sha: "n/a"
 
+---
+kind: "operation"
+client: "rug-cli 0.21.0-SNAPSHOT"
+executor:
+  name: "UpdateRugVersion"
+  group: "atomisthqa"
+  artifact: "atomist-rugs"
+  version: "0.2.5"
+  origin:
+    repo: "n/a"
+    branch: "n/a"
+    sha: "n/a"
+
