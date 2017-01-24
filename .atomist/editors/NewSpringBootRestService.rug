@@ -13,13 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
-	Published editor that will be a generator entry point.
-	Corresponds to old spring-rest-service template.
-	Dependent on known package and class naming of the start point project.
-	Parameters from the editors used will propagate to
-	entry point, except for old_class and old_package, which are overridden.
-*/
 
 @description "creates a new Spring Boot Rest Service project"
 @tag "java"
@@ -35,13 +28,6 @@ uses atomist-rugs.common-editors.ClassRenamer
 uses atomist-rugs.common-editors.RemoveApacheSoftwareLicense20
 uses atomist-rugs.common-editors.RemoveChangeLog
 uses atomist-rugs.common-editors.RemoveCodeOfConduct
-
-@displayName "Project Name"
-@description "name of your new project"
-@validInput "a valid GitHub repo name containing only alphanumeric, ., -, and _ characters and 21 characters or less to avoid Slack truncating the name when creating a channel for the repo"
-@minLength 1
-@maxLength 21
-param project_name: @project_name
 
 @displayName "Maven Artifact ID"
 @description "Maven artifact identifier, i.e., the name of the jar without the version, it is often the same as the project name"
