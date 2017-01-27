@@ -44,3 +44,18 @@ executor:
     branch: "n/a"
     sha: "n/a"
 
+---
+kind: "operation"
+client: "rug-cli 0.21.3"
+executor:
+  name: "SetSpringBootParentVersionExecutor"
+  group: "atomist-rugs"
+  artifact: "spring-boot-editors"
+  version: "0.5.2"
+  origin:
+    repo: "https://github.com/atomist-rugs/spring-boot-editors.git"
+    branch: "2e4b222888ddbdee38a88d9d420119b859d0a508"
+    sha: "2e4b222"
+  parameters:
+    - "spring_boot_version": "1.4.4.RELEASE"
+
