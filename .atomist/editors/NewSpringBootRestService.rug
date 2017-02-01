@@ -29,6 +29,13 @@ uses atomist-rugs.common-editors.RemoveApacheSoftwareLicense20
 uses atomist-rugs.common-editors.RemoveChangeLog
 uses atomist-rugs.common-editors.RemoveCodeOfConduct
 
+@displayName "Project Name"
+@description "name of your new project"
+@validInput "a valid GitHub repo name containing only alphanumeric, ., -, and _ characters and 21 characters or less to avoid Slack truncating the name when creating a channel for the repo"
+@minLength 1
+@maxLength 21
+param project_name: @project_name
+
 @displayName "Maven Artifact ID"
 @description "Maven artifact identifier, i.e., the name of the jar without the version, it is often the same as the project name"
 @validInput "a valid Maven artifact ID, which starts with a lower-case letter and contains only alphanumeric, -, and _ characters"
