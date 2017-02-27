@@ -59,3 +59,16 @@ executor:
   parameters:
     - "spring_boot_version": "1.4.4.RELEASE"
 
+---
+kind: "operation"
+client: "rug-cli 0.24.0"
+editor:
+  name: "AddTypeScript"
+  group: "atomist-rugs"
+  artifact: "rug-editors"
+  version: "0.10.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/rug-editors.git"
+    branch: "1979f9f98cad0eaf81eec3f512a80fdf3ae7d47f"
+    sha: "1979f9f"
+
