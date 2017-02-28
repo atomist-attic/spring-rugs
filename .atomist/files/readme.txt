@@ -1,6 +1,6 @@
-# $project_name
+# {{project_name}}
 
-$description
+{{description}}
 
 ## Run locally
 
