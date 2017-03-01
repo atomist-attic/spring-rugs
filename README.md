@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/atomist-rugs/spring-boot-rest-service.svg?branch=master)](https://travis-ci.org/atomist-rugs/spring-boot-rest-service)
 [![Slack Status](https://join.atomist.com/badge.svg)](https://join.atomist.com)
 
-This Rug archive contains a Generator for a Spring Boot Rest Service project.
+This Rug archive contains a generator for a Spring Boot Rest Service project.
 
 ## Rugs
 
