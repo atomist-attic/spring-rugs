@@ -73,7 +73,7 @@ Describe release
 
 Initial release
 
-[0.1.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/c134843...0.1.0
+[0.1.0]: https://github.com/atomist-rugs/spring-boot-rest-service/tree/0.1.0
 
 ### Added
 

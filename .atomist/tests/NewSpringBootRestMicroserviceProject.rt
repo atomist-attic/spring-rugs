@@ -45,7 +45,6 @@ then
     and fileContains props_file "server.port=8080"
     and fileContains readme_path "Need Help?"
     and { !result.fileExists("LICENSE") }
-    and { !result.fileExists("CHANGELOG.md") }
     and { !result.fileExists("CODE_OF_CONDUCT.md") }
 
 
@@ -77,7 +76,6 @@ then
     and fileExists props_file
     and fileContains props_file "server.port=8080"
     and { !result.fileExists("LICENSE") }
-    and { !result.fileExists("CHANGELOG.md") }
     and { !result.fileExists("CODE_OF_CONDUCT.md") }
 
 

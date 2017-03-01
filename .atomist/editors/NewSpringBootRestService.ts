@@ -20,12 +20,12 @@ import { Pattern } from '@atomist/rug/operations/RugOperation'
 import { Generator, Parameter, Tags } from '@atomist/rug/operations/Decorators'
 import { PathExpression, PathExpressionEngine } from '@atomist/rug/tree/PathExpression'
 import { File } from '@atomist/rug/model/File'
+import { cleanReadMe, cleanChangeLog, removeUnnecessaryFiles } from './RugGeneratorFunctions'
 
 @Generator("NewSpringBootRestService", "create a new Spring Boot Rest Service project")
 @Tags("java", "spring", "spring-boot", "spring-rest") 
 class NewSpringBootRestService implements PopulateProject {
 
-    // this is only necessary to avoid https://github.com/atomist/rug-resolver/issues/17
     @Parameter({
         displayName: "Project Name",
         description: "name of project to be created",
@@ -104,79 +104,31 @@ class NewSpringBootRestService implements PopulateProject {
 
     populate(project: Project) {
 
-        this.pomParameterizer(project);
+        cleanReadMe(project, this.project_name, this.description, this.group_id)
+        cleanChangeLog(project, this.project_name, this.group_id)
 
-        this.packageMove(project);
-
-        this.renameServiceClass(project)
-
-        this.switchREADME(project);
-
-        let readmeFile = this.selectReadmeFile(project)
-
-        this.addCreationDateToReadme(project, readmeFile)
-
-        this.tidyProject(project);
-    }
-
-    selectReadmeFile(project:Project) {
-        let eng: PathExpressionEngine = project.context().pathExpressionEngine();
-
-        let readmePathExpression = new PathExpression<Project, File>(
-            "/*[@name='README.md']");
-
-        let readmeFile: File = eng.scalar(project, readmePathExpression);
-
-        return readmeFile
-    }
-
-    pomParameterizer(project: Project) {
-        project.editWith("atomist-rugs.common-editors.PomParameterizer", {
+        const pomParameterizerParams = {
             "artifact_id": this.artifact_id, 
             "group_id": this.group_id,
             "version": this.version,
             "name": this.project_name,
             "description": this.description
-        });
-    }
+        }
+        project.editWith("atomist-rugs.common-editors.PomParameterizer", pomParameterizerParams);
 
-    packageMove(project: Project) {
-        let oldPackage = "com.atomist.springrest"
-
-        project.editWith("atomist-rugs.common-editors.PackageMove", {
-            "old_package": oldPackage, 
+        const packageMoveParams = {
+            "old_package": "com.atomist.springrest", 
             "new_package": this.root_package
-        });
-    }
+        }
+        project.editWith("atomist-rugs.common-editors.PackageMove", packageMoveParams);
 
-    renameServiceClass(project: Project) {
-        let oldClassName = "SpringRest"
-
-        project.editWith("atomist-rugs.common-editors.ClassRenamer", {
-            "old_class": oldClassName, 
+        const renameServiceClassParams = {
+            "old_class": "SpringRest", 
             "new_class": this.service_class_name
-        });
-    }
+        }
+        project.editWith("atomist-rugs.common-editors.ClassRenamer", renameServiceClassParams);
 
-    switchREADME(project: Project) {
-        let readmeFileName = "README.md"
-        project.deleteFile(readmeFileName)
-        let defaultREADMEPath = ".atomist/files/readme.txt"
-        project.copyEditorBackingFileOrFail(defaultREADMEPath, readmeFileName);
-    }
-
-    addCreationDateToReadme(project: Project, readme: File) {
-        readme.replace("{{project_name}}", this.project_name);
-
-        readme.replace("{{description}}", this.description);
-
-        readme.replace("{{creation_date}}", new Date().toISOString().split('T')[0]);
-    }
-
-    tidyProject(project) {
-        project.editWith("atomist-rugs.common-editors.RemoveChangeLog", {});
-        project.editWith("atomist-rugs.common-editors.RemoveApacheSoftwareLicense20",{})
-        project.editWith("atomist-rugs.common-editors.RemoveCodeOfConduct",{})
+        removeUnnecessaryFiles(project);
     }
 }
 
