@@ -9,7 +9,7 @@ This Rug archive contains a generator for a Spring Boot Rest Service project.
 
 ### NewSpringBootRestService
 
-The NewSpringBootRestService Generator creates a new [Spring
+The NewSpringBootRestService generator creates a new [Spring
 Boot][boot] [REST][rest] service project.
 
 [boot]: https://projects.spring.io/spring-boot/
