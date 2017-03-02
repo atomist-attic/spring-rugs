@@ -3,7 +3,12 @@
 [![Build Status](https://travis-ci.org/atomist-rugs/spring-boot-rest-service.svg?branch=master)](https://travis-ci.org/atomist-rugs/spring-boot-rest-service)
 [![Slack Status](https://join.atomist.com/badge.svg)](https://join.atomist.com)
 
-This Rug archive contains a generator for a Spring Boot Rest Service project.
+This [Rug][rug] project contains a generator for a [Spring Boot][boot]
+[REST][rest] service project.
+
+[rug]: http://docs.atomist.com/
+[boot]: https://projects.spring.io/spring-boot/
+[rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 
 ## Rugs
 
