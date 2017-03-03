@@ -24,8 +24,7 @@ export function cleanReadMe(project: Project, projectName: string, description: 
     let readMePE = new PathExpression<Project, File>("/*[@name='README.md']");
     let readMe: File = eng.scalar(project, readMePE);
     readMe.replace("# Atomist 'spring-boot-rest-service'", "# " + projectName);
-    readMe.regexpReplace("This .*?Rug.*? project contains a generator for a .*?Spring Boot[\\s\\S]*?\n## Rugs\n", description + "\n");
-    readMe.regexpReplace("\n### NewSpringBootRestService[\\s\\S]*\n## Support\n", "\n## Support\n");
+    readMe.regexpReplace("This .*?Rug.*? project contains a generator for a .*?Spring Boot[\\s\\S]*?\n## Support\n", description + "\n\n## Support\n");
     readMe.replace("spring-boot-rest-service", projectName);
     readMe.replace("atomist-rugs", owner);
 }
