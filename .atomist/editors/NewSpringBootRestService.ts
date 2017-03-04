@@ -23,8 +23,8 @@ import { File } from '@atomist/rug/model/File'
 import { cleanReadMe, cleanChangeLog, removeUnnecessaryFiles } from './RugGeneratorFunctions'
 
 @Generator("NewSpringBootRestService", "create a new Spring Boot Rest Service project")
-@Tags("java", "spring", "spring-boot", "spring-rest") 
-class NewSpringBootRestService implements PopulateProject {
+@Tags("java", "spring", "spring-boot", "spring-rest")
+export class NewSpringBootRestService implements PopulateProject {
 
     @Parameter({
         displayName: "Project Name",
@@ -108,7 +108,7 @@ class NewSpringBootRestService implements PopulateProject {
         cleanChangeLog(project, this.project_name, this.group_id)
 
         const pomParameterizerParams = {
-            "artifact_id": this.artifact_id, 
+            "artifact_id": this.artifact_id,
             "group_id": this.group_id,
             "version": this.version,
             "name": this.project_name,
@@ -117,13 +117,13 @@ class NewSpringBootRestService implements PopulateProject {
         project.editWith("atomist-rugs.common-editors.PomParameterizer", pomParameterizerParams);
 
         const packageMoveParams = {
-            "old_package": "com.atomist.springrest", 
+            "old_package": "com.atomist.springrest",
             "new_package": this.root_package
         }
         project.editWith("atomist-rugs.common-editors.PackageMove", packageMoveParams);
 
         const renameServiceClassParams = {
-            "old_class": "SpringRest", 
+            "old_class": "SpringRest",
             "new_class": this.service_class_name
         }
         project.editWith("atomist-rugs.common-editors.ClassRenamer", renameServiceClassParams);
