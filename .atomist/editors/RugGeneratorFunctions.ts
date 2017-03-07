@@ -41,6 +41,6 @@ export function cleanChangeLog(project: Project, projectName: string, owner: str
 }
 
 export function removeUnnecessaryFiles(project: Project): void {
-    project.editWith("atomist-rugs.common-editors.RemoveApacheSoftwareLicense20",{})
-    project.editWith("atomist-rugs.common-editors.RemoveCodeOfConduct",{})
+    project.editWith("atomist-rugs:common-editors:RemoveApacheSoftwareLicense20",{})
+    project.editWith("atomist-rugs:common-editors:RemoveCodeOfConduct",{})
 }

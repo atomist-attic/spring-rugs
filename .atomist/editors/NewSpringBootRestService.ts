@@ -27,16 +27,6 @@ import { cleanReadMe, cleanChangeLog, removeUnnecessaryFiles } from './RugGenera
 export class NewSpringBootRestService implements PopulateProject {
 
     @Parameter({
-        displayName: "Project Name",
-        description: "name of project to be created",
-        pattern: Pattern.project_name,
-        validInput: "a valid GitHub project name consisting of alphanumeric, ., -, and _ characters",
-        minLength: 1,
-        maxLength: 100
-    })
-    project_name: string;
-
-    @Parameter({
         displayName: "Maven Artifact ID",
         description: "Maven artifact identifier, i.e., the name of the jar without the version, it is often the same as the project name",
         pattern: "^[a-z][-a-z0-9_]*$", // Ideally this should be looking up artifact_id as a common pattern
@@ -100,33 +90,33 @@ export class NewSpringBootRestService implements PopulateProject {
         maxLength: 50,
         required: false
     })
-    service_class_name: string = "com.myorg";
+    service_class_name: string = "Test";
 
     populate(project: Project) {
-
-        cleanReadMe(project, this.project_name, this.description, this.group_id)
-        cleanChangeLog(project, this.project_name, this.group_id)
+        
+        cleanReadMe(project, project.name(), this.description, this.group_id)
+        cleanChangeLog(project, project.name(), this.group_id)
 
         const pomParameterizerParams = {
             "artifact_id": this.artifact_id,
             "group_id": this.group_id,
             "version": this.version,
-            "name": this.project_name,
+            "name": project.name(),
             "description": this.description
         }
-        project.editWith("atomist-rugs.common-editors.PomParameterizer", pomParameterizerParams);
+        project.editWith("atomist-rugs:common-editors:PomParameterizer", pomParameterizerParams);
 
         const packageMoveParams = {
             "old_package": "com.atomist.springrest",
             "new_package": this.root_package
         }
-        project.editWith("atomist-rugs.common-editors.PackageMove", packageMoveParams);
+        project.editWith("atomist-rugs:common-editors:PackageMove", packageMoveParams);
 
         const renameServiceClassParams = {
             "old_class": "SpringRest",
             "new_class": this.service_class_name
         }
-        project.editWith("atomist-rugs.common-editors.ClassRenamer", renameServiceClassParams);
+        project.editWith("atomist-rugs:common-editors:ClassRenamer", renameServiceClassParams);
 
         removeUnnecessaryFiles(project);
     }
