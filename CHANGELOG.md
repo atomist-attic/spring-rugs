@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.7.1...HEAD
+
+Changes include:
+
+- Migrated generator to TypeScript and Rug 0.12.0.
+
+## [0.7.1] - 2017-01-03
+
+[0.7.1]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.6.0...0.7.1
+
+Set the Spring Boot version on the parent block in any pom in a project
 
 ## [0.6.0] - 2017-01-24
 
@@ -73,7 +83,7 @@ Describe release
 
 Initial release
 
-[0.1.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/c134843...0.1.0
+[0.1.0]: https://github.com/atomist-rugs/spring-boot-rest-service/tree/0.1.0
 
 ### Added
 

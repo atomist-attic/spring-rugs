@@ -59,3 +59,44 @@ executor:
   parameters:
     - "spring_boot_version": "1.4.4.RELEASE"
 
+---
+kind: "operation"
+client: "rug-cli 0.24.0"
+editor:
+  name: "AddTypeScript"
+  group: "atomist-rugs"
+  artifact: "rug-editors"
+  version: "0.10.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/rug-editors.git"
+    branch: "1979f9f98cad0eaf81eec3f512a80fdf3ae7d47f"
+    sha: "1979f9f"
+
+---
+kind: "operation"
+client: "rug-cli 0.24.0"
+editor:
+  name: "AddTypeScriptGenerator"
+  group: "atomist-rugs"
+  artifact: "rug-editors"
+  version: "0.10.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/rug-editors.git"
+    branch: "1979f9f98cad0eaf81eec3f512a80fdf3ae7d47f"
+    sha: "1979f9f"
+  parameters:
+    - "generator_name": "NewSpringBootRestServiceProj"
+    - "description": "create a new Spring Boot Rest Service project"
+---
+kind: "operation"
+client: "rug-cli 0.27.0"
+editor:
+  name: "TestsToTypeScript"
+  group: "atomist-rugs"
+  artifact: "rug-upgrade"
+  version: "0.5.0"
+  origin:
+    repo: "https://github.com/atomist-rugs/rug-upgrade.git"
+    branch: "7789ecdaccd329e70fde3bd77acf2215bc3ba5d2"
+    sha: "7789ecd"
+
