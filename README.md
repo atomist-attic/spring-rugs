@@ -18,8 +18,6 @@ Boot][boot] [REST][rest] service project.
 [boot]: https://projects.spring.io/spring-boot/
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer
 
-[<img src="http://images.atomist.com/button/create-project.png" width="267" alt="Create a project with Atomist"/>](https://api.atomist.com/v1/projects/generators/16271c54-e671-4be6-a30c-084aba8083ed)
-
 #### Prerequisites
 
 There are no prerequisites to running this generator.
