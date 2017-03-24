@@ -21,6 +21,10 @@ import { Generator, Parameter, Tags } from '@atomist/rug/operations/Decorators'
 import { File } from '@atomist/rug/model/File'
 import { cleanReadMe, cleanChangeLog, removeUnnecessaryFiles, updatePom, movePackage, renameClass } from './RugGeneratorFunctions'
 
+/**
+ * Atomist Rug generator for creating a new Spring Boot REST service
+ * project.
+ */
 @Generator("NewSpringBootRestService", "create a new Spring Boot Rest Service project")
 @Tags("java", "spring", "spring-boot", "spring-rest")
 export class NewSpringBootRestService implements PopulateProject {
