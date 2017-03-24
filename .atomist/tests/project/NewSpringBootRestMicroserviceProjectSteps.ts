@@ -166,18 +166,13 @@ When("NewSpringBootRestService is provided all parameters but description", (p, 
 When("NewSpringBootRestService for NewSpringBootRestService should fail when given an invalid parameter", (p, world) => {
     let psworld = world as ProjectScenarioWorld;
     let generator = psworld.generator("NewSpringBootRestService");
-    let projectName = "MyService";
-    let artifactId = "foo";
-    let rootPackage = "com.foo.bar";
-    let version = "not.valid.version";
-    let serviceClassName = "MyTest";
-    let propsFile = "src/main/resources/application.properties";
-    let groupId = "somegroup";
+    let badVersion = "not.valid.version";
     psworld.generateWith(generator, projectName, {
         artifactId: artifactId,
         rootPackage: rootPackage,
-        version: version,
+        version: badVersion,
         serviceClassName: serviceClassName,
-        groupId: groupId
+        groupId: groupId,
+        description: description
     });
 });
