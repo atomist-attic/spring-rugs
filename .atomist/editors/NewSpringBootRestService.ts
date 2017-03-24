@@ -18,9 +18,8 @@ import { PopulateProject } from '@atomist/rug/operations/ProjectGenerator'
 import { Project } from '@atomist/rug/model/Core'
 import { Pattern } from '@atomist/rug/operations/RugOperation'
 import { Generator, Parameter, Tags } from '@atomist/rug/operations/Decorators'
-import { PathExpression, PathExpressionEngine } from '@atomist/rug/tree/PathExpression'
 import { File } from '@atomist/rug/model/File'
-import { cleanReadMe, cleanChangeLog, removeUnnecessaryFiles } from './RugGeneratorFunctions'
+import { cleanReadMe, cleanChangeLog, removeUnnecessaryFiles, updatePom, movePackage, renameClass } from './RugGeneratorFunctions'
 
 @Generator("NewSpringBootRestService", "create a new Spring Boot Rest Service project")
 @Tags("java", "spring", "spring-boot", "spring-rest")
@@ -29,24 +28,24 @@ export class NewSpringBootRestService implements PopulateProject {
     @Parameter({
         displayName: "Maven Artifact ID",
         description: "Maven artifact identifier, i.e., the name of the jar without the version, it is often the same as the project name",
-        pattern: "^[a-z][-a-z0-9_]*$", // Ideally this should be looking up artifact_id as a common pattern
+        pattern: "^[a-z][-a-z0-9_]*$", // Ideally this should be looking up artifactId as a common pattern
         validInput: "a valid Maven artifact ID, which starts with a lower-case letter and contains only alphanumeric, -, and _ characters",
         minLength: 1,
-        maxLength: 21,
+        maxLength: 50,
         required: false
     })
-    artifact_id: string = "myartifact";
+    artifactId: string = "myartifact";
 
     @Parameter({
-        displayName: "Group ID",
+        displayName: "Maven Group ID",
         description: "Maven group identifier, often used to provide a namespace for your project, e.g., com.pany.team",
         pattern: Pattern.group_id,
         validInput: "a valid Maven group ID, which starts with a letter, -, or _ and contains only alphanumeric, -, and _ characters and may having leading period separated identifiers starting with letters or underscores and containing only alphanumeric and _ characters.",
         minLength: 1,
-        maxLength: 21,
+        maxLength: 50,
         required: false
     })
-    group_id: string = "mygroup";
+    groupId: string = "mygroup";
 
     @Parameter({
         displayName: "Version",
@@ -79,7 +78,7 @@ export class NewSpringBootRestService implements PopulateProject {
         maxLength: 50,
         required: false
     })
-    root_package: string = "com.myorg";
+    rootPackage: string = "com.myorg";
 
     @Parameter({
         displayName: "Class Name",
@@ -90,35 +89,15 @@ export class NewSpringBootRestService implements PopulateProject {
         maxLength: 50,
         required: false
     })
-    service_class_name: string = "Test";
+    serviceClassName: string = "Test";
 
     populate(project: Project) {
-        
-        cleanReadMe(project, project.name(), this.description, this.group_id)
-        cleanChangeLog(project, project.name(), this.group_id)
-
-        const pomParameterizerParams = {
-            "artifact_id": this.artifact_id,
-            "group_id": this.group_id,
-            "version": this.version,
-            "name": project.name(),
-            "description": this.description
-        }
-        project.editWith("atomist-rugs:common-editors:PomParameterizer", pomParameterizerParams);
-
-        const packageMoveParams = {
-            "old_package": "com.atomist.springrest",
-            "new_package": this.root_package
-        }
-        project.editWith("atomist-rugs:common-editors:PackageMove", packageMoveParams);
-
-        const renameServiceClassParams = {
-            "old_class": "SpringRest",
-            "new_class": this.service_class_name
-        }
-        project.editWith("atomist-rugs:common-editors:ClassRenamer", renameServiceClassParams);
-
+        cleanReadMe(project, this.description, this.groupId);
+        cleanChangeLog(project, this.groupId);
         removeUnnecessaryFiles(project);
+        updatePom(project, this.artifactId, this.groupId, this.version, this.description);
+        movePackage(project, "com.atomist.springrest", this.rootPackage);
+        renameClass(project, "SpringRest", this.serviceClassName);
     }
 }
 

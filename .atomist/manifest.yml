@@ -1,7 +1,6 @@
 group: atomist-rugs
 artifact: spring-boot-rest-service
 version: "0.8.0"
-requires: "0.13.0-SNAPSHOT"
+requires: "0.17.3"
 dependencies:
-- "atomist-rugs:common-editors:0.8.0"
 extensions:
