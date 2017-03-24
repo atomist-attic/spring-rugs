@@ -7,11 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.7.1...HEAD
+[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.8.0...HEAD
 
-Changes include:
+## [0.8.0] - 2017-03-24
 
-- Migrated generator to TypeScript and Rug 0.12.0.
+[0.8.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.7.1...0.8.0
+
+TypeScript release
+
+### Changed
+
+-   Migrated generator and tests to TypeScript and latest Rug release
+-   Moved generator to `.atomist/generators` directory
+-   Remove Maven wrapper
+-   Do not use templates
+
+### Removed
+
+-   DiscourageXML reviewer
 
 ## [0.7.1] - 2017-01-03
 
