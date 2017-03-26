@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { Project } from '@atomist/rug/model/Core'
-import { File } from '@atomist/rug/model/File'
-import { PathExpressionEngine } from '@atomist/rug/tree/PathExpression'
-import { Pom } from '@atomist/rug/model/Pom'
-import { JavaSource } from '@atomist/rug/model/JavaSource'
-import { JavaType } from '@atomist/rug/model/JavaType'
+import { Project } from '@atomist/rug/model/Core';
+import { File } from '@atomist/rug/model/File';
+import { PathExpressionEngine } from '@atomist/rug/tree/PathExpression';
+import { Pom } from '@atomist/rug/model/Pom';
+import { JavaSource } from '@atomist/rug/model/JavaSource';
+import { JavaType } from '@atomist/rug/model/JavaType';
 
 /**
  * Remove content from README specific to this project.

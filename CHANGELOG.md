@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.8.0...HEAD
+[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.9.0...HEAD
+
+## [0.9.0] - 2017-03-26
+
+[0.9.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.8.0...0.9.0
+
+Tidy release
+
+### Changed
+
+-   Clean up Rug descriptions and code
 
 ## [0.8.0] - 2017-03-24
 
