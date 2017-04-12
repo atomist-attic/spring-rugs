@@ -30,9 +30,9 @@ import { JavaType } from '@atomist/rug/model/JavaType';
  */
 export function cleanReadMe(project: Project, description: string, owner: string): void {
     let readMe: File = project.findFile("README.md");
-    readMe.replace("# Atomist 'spring-boot-rest-service'", "# " + project.name());
+    readMe.replace("# Atomist 'spring-boot-rest-service'", "# " + project.name);
     readMe.regexpReplace("This .*?Rug.*? project contains a generator for a .*?Spring Boot[\\s\\S]*?\n## Spring Boot REST Service\n", `This project contains a [Spring Boot][boot] [REST][rest] service for ${description}.`);
-    readMe.replace("spring-boot-rest-service", project.name());
+    readMe.replace("spring-boot-rest-service", project.name);
     readMe.replace("atomist-rugs", owner);
 }
 
@@ -46,7 +46,7 @@ export function cleanChangeLog(project: Project, owner: string): void {
     let changeLog: File = project.findFile("CHANGELOG.md");
     changeLog.regexpReplace("\\d+\\.\\d+\\.\\d+\\.\\.\\.HEAD\n\n[\\S\\s]*## \\[0\\.1\\.0\\]", "0.1.0...HEAD\n\n## [0.1.0]");
     changeLog.regexpReplace("\n### Added[\\S\\s]*", "\nAdded\n\n-   Everything\n");
-    changeLog.replace("spring-boot-rest-service", project.name());
+    changeLog.replace("spring-boot-rest-service", project.name);
     changeLog.replace("atomist-rugs", owner);
 }
 
@@ -72,11 +72,11 @@ export function removeUnnecessaryFiles(project: Project): void {
  * @param description  Brief description of newly created project.
  */
 export function updatePom(project: Project, artifactId: string, groupId: string, version: string, description: string): void {
-    let eng: PathExpressionEngine = project.context().pathExpressionEngine();
+    let eng: PathExpressionEngine = project.context.pathExpressionEngine;
     eng.with<Pom>(project, "/Pom()", pom => {
         pom.setArtifactId(artifactId);
         pom.setGroupId(groupId);
-        pom.setProjectName(project.name());
+        pom.setProjectName(project.name);
         pom.setVersion(version);
         pom.setDescription(description);
     });
@@ -90,7 +90,7 @@ export function updatePom(project: Project, artifactId: string, groupId: string,
  * @param newPackage   Name of package to move to.
  */
 export function movePackage(project: Project, oldPackage: string, newPackage: string): void {
-    let eng: PathExpressionEngine = project.context().pathExpressionEngine();
+    let eng: PathExpressionEngine = project.context.pathExpressionEngine;
     eng.with<JavaSource>(project, `//JavaSource()[.pkg()='${oldPackage}']`, j => {
         j.movePackage(newPackage);
     });
@@ -106,9 +106,9 @@ export function movePackage(project: Project, oldPackage: string, newPackage: st
  * @param newClass   Name of class to move to.
  */
 export function renameClass(project: Project, oldClass: string, newClass: string): void {
-    let eng: PathExpressionEngine = project.context().pathExpressionEngine();
+    let eng: PathExpressionEngine = project.context.pathExpressionEngine;
     eng.with<JavaType>(project, `//JavaType()`, j => {
-        if (j.name().indexOf(oldClass) >= 0) {
+        if (j.name.indexOf(oldClass) >= 0) {
             j.renameByReplace(oldClass, newClass);
         }
     });
