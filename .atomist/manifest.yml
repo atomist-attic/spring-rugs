@@ -1,4 +1,4 @@
-group: atomist-rugs
+group: atomist
 artifact: spring-boot-rest-service
 version: "0.10.0"
 requires: "(0.24.0,0.26.0)"

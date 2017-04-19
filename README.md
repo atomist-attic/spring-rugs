@@ -1,6 +1,6 @@
 # Atomist 'spring-boot-rest-service'
 
-[![Build Status](https://travis-ci.org/atomist-rugs/spring-boot-rest-service.svg?branch=master)](https://travis-ci.org/atomist-rugs/spring-boot-rest-service)
+[![Build Status](https://travis-ci.org/atomist/spring-boot-rest-service.svg?branch=master)](https://travis-ci.org/atomist/spring-boot-rest-service)
 [![Slack Status](https://join.atomist.com/badge.svg)](https://join.atomist.com)
 
 This [Rug][rug] project contains a generator for a [Spring Boot][boot]
@@ -44,7 +44,7 @@ Run it as follows:
 
 ```
 $ cd parent/directory
-$ rug generate atomist-rugs:spring-boot-rest-service:NewSpringBootRestService \
+$ rug generate atomist:spring-boot-rest-service:NewSpringBootRestService \
     pet-shop-service \
     artifactId=pet-shop \
     groupId=uk.co.lndn \
@@ -78,7 +78,7 @@ at [atomist-community.slack.com][slack].
 
 If you find a problem, please create an [issue][].
 
-[issue]: https://github.com/atomist-rugs/spring-boot-rest-service/issues
+[issue]: https://github.com/atomist/spring-boot-rest-service/issues
 
 ## Rug Development
 
