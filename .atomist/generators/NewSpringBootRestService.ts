@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-import { PopulateProject } from '@atomist/rug/operations/ProjectGenerator';
-import { Project } from '@atomist/rug/model/Core';
-import { Pattern } from '@atomist/rug/operations/RugOperation';
-import { Generator, Parameter, Tags } from '@atomist/rug/operations/Decorators';
-import { File } from '@atomist/rug/model/File';
+import { File } from "@atomist/rug/model/File";
+import { Project } from "@atomist/rug/model/Project";
+import { Generator, Parameter, Tags } from "@atomist/rug/operations/Decorators";
+import { PopulateProject } from "@atomist/rug/operations/ProjectGenerator";
+import { Pattern } from "@atomist/rug/operations/RugOperation";
 
-import { cleanReadMe, cleanChangeLog, removeUnnecessaryFiles, updatePom, movePackage, renameClass } from './RugGeneratorFunctions';
+import {
+    cleanChangeLog, cleanReadMe, movePackage, removeUnnecessaryFiles,
+    renameClass, updatePom,
+} from "./RugGeneratorFunctions";
 
 /**
  * Atomist Rug generator for creating a new Spring Boot REST service
@@ -32,25 +35,29 @@ export class NewSpringBootRestService implements PopulateProject {
 
     @Parameter({
         displayName: "Maven Artifact ID",
-        description: "Maven artifact identifier, i.e., the name of the jar without the version, it is often the same as the project name",
+        description: "Maven artifact identifier, i.e., the name of the jar without the version," +
+        " it is often the same as the project name",
         pattern: "^[a-z][-a-z0-9_]*$", // Ideally this should be looking up artifactId as a common pattern
-        validInput: "a valid Maven artifact ID, which starts with a lower-case letter and contains only alphanumeric, -, and _ characters",
+        validInput: "a valid Maven artifact ID, which starts with a lower-case letter and contains only " +
+        " alphanumeric, -, and _ characters",
         minLength: 1,
         maxLength: 50,
-        required: false
+        required: false,
     })
-    artifactId: string = "myartifact";
+    public artifactId: string = "myartifact";
 
     @Parameter({
         displayName: "Maven Group ID",
         description: "Maven group identifier, often used to provide a namespace for your project, e.g., com.pany.team",
         pattern: Pattern.group_id,
-        validInput: "a valid Maven group ID, which starts with a letter, -, or _ and contains only alphanumeric, -, and _ characters and may having leading period separated identifiers starting with letters or underscores and containing only alphanumeric and _ characters.",
+        validInput: "a valid Maven group ID, which starts with a letter, -, or _ and contains only alphanumeric," +
+        " -, and _ characters and may having leading period separated identifiers starting with letters or " +
+        " underscores and containing only alphanumeric and _ characters.",
         minLength: 1,
         maxLength: 50,
-        required: false
+        required: false,
     })
-    groupId: string = "mygroup";
+    public groupId: string = "mygroup";
 
     @Parameter({
         displayName: "Version",
@@ -59,9 +66,9 @@ export class NewSpringBootRestService implements PopulateProject {
         validInput: "a valid semantic version, http://semver.org",
         minLength: 1,
         maxLength: 50,
-        required: false
+        required: false,
     })
-    version: string = "0.1.0-SNAPSHOT";
+    public version: string = "0.1.0-SNAPSHOT";
 
     @Parameter({
         displayName: "Project Description",
@@ -70,33 +77,35 @@ export class NewSpringBootRestService implements PopulateProject {
         validInput: "free text",
         minLength: 1,
         maxLength: 100,
-        required: false
+        required: false,
     })
-    description: string = "My new project"
+    public description: string = "My new project";
 
     @Parameter({
         displayName: "Root Package",
         description: "root package for your generated source, often this will be namespaced under the group ID",
         pattern: Pattern.java_package,
-        validInput: "a valid Java package name, which consists of period-separated identifiers which have only alphanumeric characters, $ and _ and do not start with a number",
+        validInput: "a valid Java package name, which consists of period-separated identifiers which" +
+        " have only alphanumeric characters, $ and _ and do not start with a number",
         minLength: 1,
         maxLength: 50,
-        required: false
+        required: false,
     })
-    rootPackage: string = "com.myorg";
+    public rootPackage: string = "com.myorg";
 
     @Parameter({
         displayName: "Class Name",
         description: "name for the service class",
         pattern: Pattern.java_class,
-        validInput: "a valid Java class name, which contains only alphanumeric characters, $ and _ and does not start with a number",
+        validInput: "a valid Java class name, which contains only alphanumeric characters, $ and _" +
+        " and does not start with a number",
         minLength: 1,
         maxLength: 50,
-        required: false
+        required: false,
     })
-    serviceClassName: string = "Test";
+    public serviceClassName: string = "Test";
 
-    populate(project: Project) {
+    public populate(project: Project) {
         cleanReadMe(project, this.description, this.groupId);
         cleanChangeLog(project, this.groupId);
         removeUnnecessaryFiles(project);

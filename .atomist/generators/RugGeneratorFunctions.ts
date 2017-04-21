@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-import { Project } from '@atomist/rug/model/Core';
-import { File } from '@atomist/rug/model/File';
-import { PathExpressionEngine } from '@atomist/rug/tree/PathExpression';
-import { Pom } from '@atomist/rug/model/Pom';
-import { JavaSource } from '@atomist/rug/model/JavaSource';
-import { JavaType } from '@atomist/rug/model/JavaType';
+import { File } from "@atomist/rug/model/File";
+import { JavaSource } from "@atomist/rug/model/JavaSource";
+import { JavaType } from "@atomist/rug/model/JavaType";
+import { Pom } from "@atomist/rug/model/Pom";
+import { Project } from "@atomist/rug/model/Project";
+
+import { PathExpressionEngine } from "@atomist/rug/tree/PathExpression";
 
 /**
  * Remove content from README specific to this project.
@@ -29,9 +30,12 @@ import { JavaType } from '@atomist/rug/model/JavaType';
  * @param owner        GitHub owner of newly created project.
  */
 export function cleanReadMe(project: Project, description: string, owner: string): void {
-    let readMe: File = project.findFile("README.md");
+    const readMe: File = project.findFile("README.md");
     readMe.replace("# Atomist 'spring-boot-rest-service'", "# " + project.name);
-    readMe.regexpReplace("This .*?Rug.*? project contains a generator for a .*?Spring Boot[\\s\\S]*?\n## Spring Boot REST Service\n", `This project contains a [Spring Boot][boot] [REST][rest] service for ${description}.`);
+    const descRE = "This .*?Rug.*? project contains a generator for a .*?Spring Boot[\\s\\S]*?\n" +
+        "## Spring Boot REST Service\n";
+    const newDescription = `This project contains a [Spring Boot][boot] [REST][rest] service for ${description}.`;
+    readMe.regexpReplace(descRE, newDescription);
     readMe.replace("spring-boot-rest-service", project.name);
     readMe.replace("atomist-rugs", owner);
 }
@@ -43,8 +47,9 @@ export function cleanReadMe(project: Project, description: string, owner: string
  * @param owner    GitHub owner of newly created project.
  */
 export function cleanChangeLog(project: Project, owner: string): void {
-    let changeLog: File = project.findFile("CHANGELOG.md");
-    changeLog.regexpReplace("\\d+\\.\\d+\\.\\d+\\.\\.\\.HEAD\n\n[\\S\\s]*## \\[0\\.1\\.0\\]", "0.1.0...HEAD\n\n## [0.1.0]");
+    const changeLog: File = project.findFile("CHANGELOG.md");
+    const middleContentRE = "\\d+\\.\\d+\\.\\d+\\.\\.\\.HEAD\n\n[\\S\\s]*## \\[0\\.1\\.0\\]";
+    changeLog.regexpReplace(middleContentRE, "0.1.0...HEAD\n\n## [0.1.0]");
     changeLog.regexpReplace("\n### Added[\\S\\s]*", "\nAdded\n\n-   Everything\n");
     changeLog.replace("spring-boot-rest-service", project.name);
     changeLog.replace("atomist-rugs", owner);
@@ -56,8 +61,8 @@ export function cleanChangeLog(project: Project, owner: string): void {
  * @param project  Project whose README should be cleaned.
  */
 export function removeUnnecessaryFiles(project: Project): void {
-    let toDelete: string[] = ["LICENSE", "CODE_OF_CONDUCT.md", ".travis.yml"];
-    for (let f of toDelete) {
+    const toDelete: string[] = ["LICENSE", "CODE_OF_CONDUCT.md", ".travis.yml"];
+    for (const f of toDelete) {
         project.deleteFile(f);
     }
 }
@@ -71,9 +76,15 @@ export function removeUnnecessaryFiles(project: Project): void {
  * @param version      Project version.
  * @param description  Brief description of newly created project.
  */
-export function updatePom(project: Project, artifactId: string, groupId: string, version: string, description: string): void {
-    let eng: PathExpressionEngine = project.context.pathExpressionEngine;
-    eng.with<Pom>(project, "/Pom()", pom => {
+export function updatePom(
+    project: Project,
+    artifactId: string,
+    groupId: string,
+    version: string,
+    description: string): void {
+
+    const eng: PathExpressionEngine = project.context.pathExpressionEngine;
+    eng.with<Pom>(project, "/Pom()", (pom) => {
         pom.setArtifactId(artifactId);
         pom.setGroupId(groupId);
         pom.setProjectName(project.name);
@@ -90,8 +101,8 @@ export function updatePom(project: Project, artifactId: string, groupId: string,
  * @param newPackage   Name of package to move to.
  */
 export function movePackage(project: Project, oldPackage: string, newPackage: string): void {
-    let eng: PathExpressionEngine = project.context.pathExpressionEngine;
-    eng.with<JavaSource>(project, `//JavaSource()[.pkg()='${oldPackage}']`, j => {
+    const eng: PathExpressionEngine = project.context.pathExpressionEngine;
+    eng.with<JavaSource>(project, `//JavaSource()[.pkg()='${oldPackage}']`, (j) => {
         j.movePackage(newPackage);
     });
 }
@@ -106,8 +117,8 @@ export function movePackage(project: Project, oldPackage: string, newPackage: st
  * @param newClass   Name of class to move to.
  */
 export function renameClass(project: Project, oldClass: string, newClass: string): void {
-    let eng: PathExpressionEngine = project.context.pathExpressionEngine;
-    eng.with<JavaType>(project, `//JavaType()`, j => {
+    const eng: PathExpressionEngine = project.context.pathExpressionEngine;
+    eng.with<JavaType>(project, `//JavaType()`, (j) => {
         if (j.name.indexOf(oldClass) >= 0) {
             j.renameByReplace(oldClass, newClass);
         }

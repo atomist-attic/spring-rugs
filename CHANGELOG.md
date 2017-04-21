@@ -7,7 +7,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.9.0...HEAD
+[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.11.0...HEAD
+
+## [0.10.0] - 2017-04-21
+
+[0.11.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.10.0...0.11.0
+
+Lint release
+
+### Changed
+
+-   Cleaned up code
+-   Updated TypeScript support and build files
+
+## [0.10.0] - 2017-04-12
+
+[0.10.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.9.0...0.10.0
+
+Spring release
+
+### Changed
+
+-   Updated to rug 0.25.0
 
 ## [0.9.0] - 2017-03-26
 
