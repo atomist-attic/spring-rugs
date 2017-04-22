@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.11.0...HEAD
 
-## [0.10.0] - 2017-04-21
+## [0.11.0] - 2017-04-21
 
 [0.11.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.10.0...0.11.0
 
