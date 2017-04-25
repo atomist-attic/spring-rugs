@@ -31,12 +31,12 @@ import { PathExpressionEngine } from "@atomist/rug/tree/PathExpression";
  */
 export function cleanReadMe(project: Project, description: string, owner: string): void {
     const readMe: File = project.findFile("README.md");
-    readMe.replace("# Atomist 'spring-boot-rest-service'", "# " + project.name);
+    readMe.replace("# Atomist 'spring-rugs'", "# " + project.name);
     const descRE = "This .*?Rug.*? project contains a generator for a .*?Spring Boot[\\s\\S]*?\n" +
         "## Spring Boot REST Service\n";
     const newDescription = `This project contains a [Spring Boot][boot] [REST][rest] service for ${description}.`;
     readMe.regexpReplace(descRE, newDescription);
-    readMe.replace("spring-boot-rest-service", project.name);
+    readMe.replace("spring-rugs", project.name);
     readMe.replace("atomist-rugs", owner);
 }
 
@@ -51,7 +51,7 @@ export function cleanChangeLog(project: Project, owner: string): void {
     const middleContentRE = "\\d+\\.\\d+\\.\\d+\\.\\.\\.HEAD\n\n[\\S\\s]*## \\[0\\.1\\.0\\]";
     changeLog.regexpReplace(middleContentRE, "0.1.0...HEAD\n\n## [0.1.0]");
     changeLog.regexpReplace("\n### Added[\\S\\s]*", "\nAdded\n\n-   Everything\n");
-    changeLog.replace("spring-boot-rest-service", project.name);
+    changeLog.replace("spring-rugs", project.name);
     changeLog.replace("atomist-rugs", owner);
 }
 

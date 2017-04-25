@@ -4,7 +4,7 @@
 set -o pipefail
 
 declare Pkg=travis-build
-declare Version=0.3.0
+declare Version=0.4.0
 
 function msg() {
     echo "$Pkg: $*"
@@ -33,6 +33,11 @@ function main () {
     fi
     msg "rug CLI version: $version"
 
+    if ! ( cd .atomist && tslint **/*.ts ); then
+        err "tslint failed"
+        return 1
+    fi
+
     local rug=$HOME/.atomist/rug-cli-$version/bin/rug
     if [[ ! -x $rug ]]; then
         msg "downloading rug CLI"
@@ -54,12 +59,12 @@ function main () {
         fi
     fi
     rug="$rug --timer --quiet --update --resolver-report --error --settings=$PWD/.atomist/build/cli.yml"
-    export TEAM_ID=rugs-dev
+    export TEAM_ID=T1L0VDKJP
 
     if [[ -f .atomist/package.json ]]; then
-        msg "running yarn install"
-        if ! ( cd .atomist && yarn install ); then
-            err "yarn install failed"
+        msg "running yarn"
+        if ! ( cd .atomist && yarn ); then
+            err "yarn failed"
             return 1
         fi
     fi

@@ -7,11 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.11.0...HEAD
+[Unreleased]: https://github.com/atomist-rugs/spring-rugs/compare/0.12.0...HEAD
+
+## [0.12.0] - 2017-04-25
+
+[0.12.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.11.0...0.12.0
+
+New name release
+
+### Changed
+
+-   Renamed project to spring-rugs
+-   Update rug and @atomist/rugs dependencies
+-   Update Travis CI build
+-   Update TypeScript support files
 
 ## [0.11.0] - 2017-04-21
 
-[0.11.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.10.0...0.11.0
+[0.11.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.10.0...0.11.0
 
 Lint release
 
@@ -22,7 +35,7 @@ Lint release
 
 ## [0.10.0] - 2017-04-12
 
-[0.10.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.9.0...0.10.0
+[0.10.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.9.0...0.10.0
 
 Spring release
 
@@ -32,7 +45,7 @@ Spring release
 
 ## [0.9.0] - 2017-03-26
 
-[0.9.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.8.0...0.9.0
+[0.9.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.8.0...0.9.0
 
 Tidy release
 
@@ -42,7 +55,7 @@ Tidy release
 
 ## [0.8.0] - 2017-03-24
 
-[0.8.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.7.1...0.8.0
+[0.8.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.7.1...0.8.0
 
 TypeScript release
 
@@ -59,13 +72,13 @@ TypeScript release
 
 ## [0.7.1] - 2017-01-03
 
-[0.7.1]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.6.0...0.7.1
+[0.7.1]: https://github.com/atomist-rugs/spring-rugs/compare/0.6.0...0.7.1
 
 Set the Spring Boot version on the parent block in any pom in a project
 
 ## [0.6.0] - 2017-01-24
 
-[0.6.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.5.0...0.6.0
+[0.6.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.5.0...0.6.0
 
 Remove Atomist standard project files
 
@@ -77,7 +90,7 @@ Remove Atomist standard project files
 
 ## [0.5.0] - 2017-01-05
 
-[0.5.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.3.0...0.5.0
+[0.5.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.3.0...0.5.0
 
 Brand new rug release
 
@@ -87,7 +100,7 @@ Brand new rug release
 
 ## [0.3.0] - 2016-12-14
 
-[0.3.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.2.0...0.3.0
+[0.3.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.2.0...0.3.0
 
 Brand new rug release
 
@@ -101,7 +114,7 @@ Brand new rug release
 
 ## [0.2.0] - 2016-12-11
 
-[0.2.0]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.1.1...0.2.0
+[0.2.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.1.1...0.2.0
 
 Conformity to convention release
 
@@ -117,7 +130,7 @@ Conformity to convention release
 
 Describe release
 
-[0.1.1]: https://github.com/atomist-rugs/spring-boot-rest-service/compare/0.1.0...0.1.1
+[0.1.1]: https://github.com/atomist-rugs/spring-rugs/compare/0.1.0...0.1.1
 
 ### Fixed
 
@@ -127,7 +140,7 @@ Describe release
 
 Initial release
 
-[0.1.0]: https://github.com/atomist-rugs/spring-boot-rest-service/tree/0.1.0
+[0.1.0]: https://github.com/atomist-rugs/spring-rugs/tree/0.1.0
 
 ### Added
 

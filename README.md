@@ -1,6 +1,6 @@
-# Atomist 'spring-boot-rest-service'
+# Atomist 'spring-rugs'
 
-[![Build Status](https://travis-ci.org/atomist/spring-boot-rest-service.svg?branch=master)](https://travis-ci.org/atomist/spring-boot-rest-service)
+[![Build Status](https://travis-ci.org/atomist/spring-rugs.svg?branch=master)](https://travis-ci.org/atomist/spring-rugs)
 [![Slack Status](https://join.atomist.com/badge.svg)](https://join.atomist.com)
 
 This [Rug][rug] project contains a generator for a [Spring Boot][boot]
@@ -44,7 +44,7 @@ Run it as follows:
 
 ```
 $ cd parent/directory
-$ rug generate atomist:spring-boot-rest-service:NewSpringBootRestService \
+$ rug generate atomist:spring-rugs:NewSpringBootRestService \
     pet-shop-service \
     artifactId=pet-shop \
     groupId=uk.co.lndn \
@@ -78,7 +78,16 @@ at [atomist-community.slack.com][slack].
 
 If you find a problem, please create an [issue][].
 
-[issue]: https://github.com/atomist/spring-boot-rest-service/issues
+[issue]: https://github.com/atomist/spring-rugs/issues
+
+## Rug Contributing
+
+If you are interested in contributing to the Atomist open source
+projects, please see our [contributing guidelines][contrib] and
+our [code of conduct][code].
+
+[contrib]: https://github.com/atomist/welcome/blob/master/CONTRIBUTING.md
+[code]: https://github.com/atomist/welcome/blob/master/CODE_OF_CONDUCT.md
 
 ## Rug Development
 
@@ -109,7 +118,6 @@ of the release notes.  It will also automatically upload the needed
 artifacts.
 
 ## Spring Boot REST Service
-
 
 [boot]: https://projects.spring.io/spring-boot/
 [rest]: https://en.wikipedia.org/wiki/Representational_state_transfer

@@ -100,3 +100,16 @@ editor:
     branch: "7789ecdaccd329e70fde3bd77acf2215bc3ba5d2"
     sha: "7789ecd"
 
+---
+kind: "operation"
+client: "rug-cli 0.33.4"
+editor:
+  name: "UpdateSupportFiles"
+  group: "atomist"
+  artifact: "rug-editors"
+  version: "0.27.1"
+  origin:
+    repo: "https://github.com/atomist/rug-editors.git"
+    branch: "3de333b4aefd678ae14f196ab155647241de3746"
+    sha: "3de333b"
+
