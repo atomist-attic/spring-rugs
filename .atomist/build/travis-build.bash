@@ -4,7 +4,7 @@
 set -o pipefail
 
 declare Pkg=travis-build
-declare Version=0.4.0
+declare Version=0.5.0
 
 function msg() {
     echo "$Pkg: $*"
@@ -25,15 +25,18 @@ function main () {
     fi
 
     local version
-    version=$(echo "$formula" | sed -n '/^ *url /s,.*/\([0-9]*\.[0-9]*\.[0-9]*\)/.*,\1,p')
+    version=$(echo "$formula" | awk '$1 == "version" { print $2 }' | sed 's/"//g')
     if [[ $? -ne 0 || ! $version ]]; then
-        err "failed to parse brew formula for version: $version"
-        err "$formula"
-        return 1
+        version=$(echo "$formula" | sed -En '/^ *url /s/.*\/([0-9]+\.[0-9]+\.[0-9]+(-(m|rc)\.[0-9]+)?)\/.*/\1/p')
+        if [[ $? -ne 0 || ! $version ]]; then
+            err "failed to parse brew formula for version: $version"
+            err "$formula"
+            return 1
+        fi
     fi
     msg "rug CLI version: $version"
 
-    if ! ( cd .atomist && tslint **/*.ts ); then
+    if ! ( cd .atomist && tslint '**/*.ts' --exclude 'node_modules/**' ); then
         err "tslint failed"
         return 1
     fi
