@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@atomist/rugs": "^1.0.0-m.1"
+    "@atomist/rugs": "^1.0.0-m.4"
   },
   "scripts": {
     "test": "rug test"
