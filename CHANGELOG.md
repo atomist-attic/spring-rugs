@@ -7,17 +7,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/spring-rugs/compare/0.13.0...HEAD
+[Unreleased]: https://github.com/atomist-rugs/spring-rugs/compare/0.13.1...HEAD
 
-## [0.13.0] - 2017-06-16
+## [0.13.1] - 2017-06-19
 
-[0.12.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.12.0...0.13.0
+[0.13.1]: https://github.com/atomist-rugs/spring-rugs/compare/0.13.0...0.13.1
 
-Uptake new rug version
+De-node release
+
+### Fixed
+
+-   Remove empty node_modules file from archive and generated projects
+
+## [0.13.0] - 2017-06-19
+
+[0.13.0]: https://github.com/atomist-rugs/spring-rugs/compare/0.12.0...0.13.0
+
+Update rug version
 
 ### Changed
 
 -   Update rug and @atomist/rugs dependencies
+-   Convert manifest.yml to package.json
+-   Update various Rug files
 
 ## [0.12.0] - 2017-04-25
 

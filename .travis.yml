@@ -27,7 +27,7 @@ notifications:
 cache:
   directories:
   - "$HOME/.atomist"
-  - node_modules
+  - .atomist/node_modules
 deploy:
   provider: releases
   api_key:
