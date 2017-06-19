@@ -10,6 +10,22 @@ This [Rug][rug] project contains a generator for a [Spring Boot][boot]
 
 ## Rugs
 
+Rugs are typically run using the Atomist Bot in Slack.  To run Rugs
+locally, you must first install the following tools:
+
+-   [Rug CLI][rug-cli]
+-   [Node.js][node]
+
+[rug-cli]: http://docs.atomist.com/user-guide/interfaces/cli/install/
+[node]: https://nodejs.org/
+
+Once those tools are installed, you can clone this repository and
+install its dependencies with the following command.
+
+```
+$ ( cd .atomist && npm install )
+```
+
 ### NewSpringBootRestService
 
 The NewSpringBootRestService generator creates a new [Spring
