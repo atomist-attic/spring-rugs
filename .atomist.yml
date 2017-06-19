@@ -126,3 +126,31 @@ editor:
     branch: "0f425945c62957ccc2ccb63e9980e6f78b97a4a1"
     sha: "0f42594"
 
+---
+kind: "operation"
+client: "com.atomist:rug"
+version: "1.0.0-m.4"
+editor:
+  name: "ConvertManifestToPackageJson"
+  group: "atomist"
+  artifact: "rug-rugs"
+  version: "0.31.0"
+  origin:
+    repo: "git@github.com:atomist/spring-rugs.git"
+    branch: "master"
+    sha: "4d2bc97"
+
+---
+kind: "operation"
+client: "com.atomist:rug"
+version: "1.0.0-m.4"
+editor:
+  name: "UpdateSupportFiles"
+  group: "atomist"
+  artifact: "rug-rugs"
+  version: "0.31.0"
+  origin:
+    repo: "git@github.com:atomist/spring-rugs.git"
+    branch: "master"
+    sha: "4d2bc97*"
+

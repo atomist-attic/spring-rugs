@@ -1,6 +1,0 @@
-group: atomist
-artifact: spring-rugs
-version: "0.13.0"
-requires: "[1.0.0-m.4,2.0.0)"
-dependencies:
-extensions:

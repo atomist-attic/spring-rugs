@@ -14,7 +14,8 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "outDir": "target/ts-built"
+        "outDir": "target/ts-built",
+        "rootDir": "."
     },
     "exclude": [
         "node_modules",

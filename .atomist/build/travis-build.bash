@@ -4,7 +4,7 @@
 set -o pipefail
 
 declare Pkg=travis-build
-declare Version=0.5.0
+declare Version=0.8.0
 
 function msg() {
     echo "$Pkg: $*"
@@ -24,24 +24,19 @@ function main () {
         return 1
     fi
 
-    local version
-    version=$(echo "$formula" | awk '$1 == "version" { print $2 }' | sed 's/"//g')
-    if [[ $? -ne 0 || ! $version ]]; then
-        version=$(echo "$formula" | sed -En '/^ *url /s/.*\/([0-9]+\.[0-9]+\.[0-9]+(-(m|rc)\.[0-9]+)?)\/.*/\1/p')
-        if [[ $? -ne 0 || ! $version ]]; then
-            err "failed to parse brew formula for version: $version"
+    local cli_version
+    cli_version=$(echo "$formula" | awk '$1 == "version" { print $2 }' | sed 's/"//g')
+    if [[ $? -ne 0 || ! $cli_version ]]; then
+        cli_version=$(echo "$formula" | sed -En '/^ *url /s/.*\/([0-9]+\.[0-9]+\.[0-9]+(-(m|rc)\.[0-9]+)?)\/.*/\1/p')
+        if [[ $? -ne 0 || ! $cli_version ]]; then
+            err "failed to parse brew formula for version: $cli_version"
             err "$formula"
             return 1
         fi
     fi
-    msg "rug CLI version: $version"
+    msg "rug CLI version: $cli_version"
 
-    if ! ( cd .atomist && tslint '**/*.ts' --exclude 'node_modules/**' ); then
-        err "tslint failed"
-        return 1
-    fi
-
-    local rug=$HOME/.atomist/rug-cli-$version/bin/rug
+    local rug=$HOME/.atomist/rug-cli-$cli_version/bin/rug
     if [[ ! -x $rug ]]; then
         msg "downloading rug CLI"
         if ! mkdir -p "$HOME/.atomist"; then
@@ -49,8 +44,8 @@ function main () {
             return 1
         fi
 
-        local rug_cli_url=https://github.com/atomist/rug-cli/releases/download/$version/rug-cli-$version-bin.tar.gz
-        local rug_cli_tgz=$HOME/.atomist/rug-cli-$version.tar.gz
+        local rug_cli_url=https://github.com/atomist/rug-cli/releases/download/$cli_version/rug-cli-$cli_version-bin.tar.gz
+        local rug_cli_tgz=$HOME/.atomist/rug-cli-$cli_version.tar.gz
         if ! curl -s -f -L -o "$rug_cli_tgz" "$rug_cli_url"; then
             err "failed to download rug CLI from $rug_cli_url"
             return 1
@@ -64,10 +59,22 @@ function main () {
     rug="$rug --timer --quiet --update --resolver-report --error --settings=$PWD/.atomist/build/cli.yml"
     export TEAM_ID=T1L0VDKJP
 
-    if [[ -f .atomist/package.json ]]; then
-        msg "running yarn"
-        if ! ( cd .atomist && yarn ); then
-            err "yarn failed"
+    msg "running npm install"
+    if ! ( cd .atomist && npm install ); then
+        err "npm install failed"
+        return 1
+    fi
+
+    msg "running lint"
+    if ! ( cd .atomist && npm run lint ); then
+        err "tslint failed"
+        return 1
+    fi
+
+    if [[ -d .atomist/mocha ]]; then
+        msg "running mocha tests"
+        if ! ( cd .atomist && npm run mocha ); then
+            err "mocha tests failed"
             return 1
         fi
     fi
@@ -87,15 +94,10 @@ function main () {
     [[ $TRAVIS_PULL_REQUEST == false ]] || return 0
 
     local archive_version
-    local manifest=.atomist/manifest.yml
-    if [[ -f $manifest ]]; then
-        archive_version=$(awk -F: '$1 == "version" { print $2 }' "$manifest" | sed 's/[^.0-9]//g')
-    else
-        err "no manifest.yml in archive"
-        return 1
-    fi
+    local pkg_json=.atomist/package.json
+    archive_version=$(jq -er .version "$pkg_json")
     if [[ $? -ne 0 || ! $archive_version ]]; then
-        err "failed to extract archive version: $archive_version"
+        err "failed to extract archive version from $pkg_json: $archive_version"
         return 1
     fi
     local project_version
@@ -120,8 +122,9 @@ function main () {
 
     if [[ $TRAVIS_BRANCH == master || $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         msg "publishing archive to $TEAM_ID"
-        if ! $rug publish -F -a "$project_version"; then
+        if ! $rug publish -a "$project_version"; then
             err "failed to publish archive $project_version"
+            git diff
             return 1
         fi
 
@@ -138,7 +141,11 @@ function main () {
             err "failed to create git tag: $git_tag"
             return 1
         fi
-        if ! git push --quiet --tags "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG" > /dev/null 2>&1; then
+        local remote=origin
+        if [[ $GITHUB_TOKEN ]]; then
+            remote=https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG
+        fi
+        if ! git push --quiet --tags "$remote" > /dev/null 2>&1; then
             err "failed to push git tags"
             return 1
         fi
