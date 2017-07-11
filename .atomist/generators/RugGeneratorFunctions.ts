@@ -31,13 +31,11 @@ import { PathExpressionEngine } from "@atomist/rug/tree/PathExpression";
  */
 export function cleanReadMe(project: Project, description: string, owner: string): void {
     const readMe: File = project.findFile("README.md");
-    readMe.replace("# Atomist 'spring-rugs'", "# " + project.name);
-    const descRE = "This .*?Rug.*? project contains a generator for a .*?Spring Boot[\\s\\S]*?\n" +
-        "## Spring Boot REST Service\n";
-    const newDescription = `This project contains a [Spring Boot][boot] [REST][rest] service for ${description}.`;
-    readMe.regexpReplace(descRE, newDescription);
-    readMe.replace("spring-rugs", project.name);
-    readMe.replace("atomist-rugs", owner);
+    readMe.regexpReplace("^# Atomist 'spring-rugs'[\\S\\s]*\n## Spring Boot REST Service\n",
+        `# ${project.name}
+
+This project contains a [Spring Boot][boot] [REST][rest] service for ${description}.
+`);
 }
 
 /**
@@ -61,10 +59,13 @@ export function cleanChangeLog(project: Project, owner: string): void {
  * @param project  Project whose README should be cleaned.
  */
 export function removeUnnecessaryFiles(project: Project): void {
-    const toDelete: string[] = ["LICENSE", "CODE_OF_CONDUCT.md", ".travis.yml"];
-    for (const f of toDelete) {
-        project.deleteFile(f);
-    }
+    const toDelete: string[] = [
+        "LICENSE",
+        "CODE_OF_CONDUCT.md",
+        "CONTRIBUTING.md",
+        ".travis.yml",
+    ];
+    toDelete.forEach(f => project.deleteFile(f));
 }
 
 /**
@@ -84,7 +85,7 @@ export function updatePom(
     description: string): void {
 
     const eng: PathExpressionEngine = project.context.pathExpressionEngine;
-    eng.with<Pom>(project, "/Pom()", (pom) => {
+    eng.with<Pom>(project, "/Pom()", pom => {
         pom.setArtifactId(artifactId);
         pom.setGroupId(groupId);
         pom.setProjectName(project.name);
@@ -102,7 +103,7 @@ export function updatePom(
  */
 export function movePackage(project: Project, oldPackage: string, newPackage: string): void {
     const eng: PathExpressionEngine = project.context.pathExpressionEngine;
-    eng.with<JavaSource>(project, `//JavaSource()[.pkg()='${oldPackage}']`, (j) => {
+    eng.with<JavaSource>(project, `//JavaSource()[.pkg()='${oldPackage}']`, j => {
         j.movePackage(newPackage);
     });
 }
@@ -118,7 +119,7 @@ export function movePackage(project: Project, oldPackage: string, newPackage: st
  */
 export function renameClass(project: Project, oldClass: string, newClass: string): void {
     const eng: PathExpressionEngine = project.context.pathExpressionEngine;
-    eng.with<JavaType>(project, `//JavaType()`, (j) => {
+    eng.with<JavaType>(project, `//JavaType()`, j => {
         if (j.name.indexOf(oldClass) >= 0) {
             j.renameByReplace(oldClass, newClass);
         }

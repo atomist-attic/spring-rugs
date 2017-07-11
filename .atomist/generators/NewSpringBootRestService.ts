@@ -74,12 +74,12 @@ export class NewSpringBootRestService implements PopulateProject {
         displayName: "Project Description",
         description: "short descriptive text describing the new project",
         pattern: Pattern.any,
-        validInput: "free text",
+        validInput: "free text sentence fragment",
         minLength: 1,
         maxLength: 100,
         required: false,
     })
-    public description: string = "My new project";
+    public description: string = "my new project";
 
     @Parameter({
         displayName: "Root Package",

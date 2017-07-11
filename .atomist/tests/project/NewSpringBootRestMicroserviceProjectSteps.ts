@@ -131,10 +131,6 @@ Then("the props file contains the server port", (p, world) => {
     return p.fileContains(propsFile, "server.port=8080");
 });
 
-Then("the LICENSE file should not exist", (p, world) => {
-    return !p.fileExists("LICENSE");
-});
-
 Then("the CHANGELOG file should exist", (p, world) => {
     return p.fileExists("CHANGELOG.md");
 });
@@ -143,12 +139,8 @@ Then("the CHANGELOG file should not contain releases from this project", (p, wor
     return !p.fileContains("CHANGELOG.md", "0.3.0");
 });
 
-Then("the code of conduct file should not exist", (p, world) => {
-    return !p.fileExists("CODE_OF_CONDUCT.md");
-});
-
-Then("the Travis CI configuration should not exist", (p, world) => {
-    return !p.fileExists(".travis.yml");
+Then("file at ([^\\s]+) should not exist", (p: Project, world: ProjectScenarioWorld, path: string) => {
+    return !p.fileExists(path);
 });
 
 When("NewSpringBootRestService is provided all parameters but description", (p, world) => {

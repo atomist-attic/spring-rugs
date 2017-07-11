@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/spring-rugs/compare/0.13.2...HEAD
+[Unreleased]: https://github.com/atomist/spring-rugs/compare/0.13.3...HEAD
+
+## [0.13.3] - 2017-07-11
+
+[0.13.3]: https://github.com/atomist/spring-rugs/compare/0.13.2...0.13.3
+
+Clean release
+
+### Fixed
+
+-   README.md in generated project is now well-formed
+
+### Changed
+
+-   Update dependencies and support files
 
 ## [0.13.2] - 2017-07-11
 

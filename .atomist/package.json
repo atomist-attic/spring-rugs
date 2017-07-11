@@ -1,7 +1,7 @@
 {
   "name": "@atomist/spring-rugs",
   "description": "Atomist Rugs for Java Spring projects",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "author": "Atomist",
   "license": "Apache-2.0",
   "repository": {
@@ -19,7 +19,7 @@
     "url": "https://github.com/atomist/spring-rugs/issues"
   },
   "dependencies": {
-    "@atomist/rugs": "^1.0.0-m.5"
+    "@atomist/rugs": "^1.0.0-m.6"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",
@@ -36,11 +36,15 @@
   },
   "scripts": {
     "autotest": "supervisor -q -n exit -e ts -x npm -- run mocha",
-    "lint": "tslint '**/*.ts' --exclude 'node_modules/**' -t verbose",
+    "clean": "npm run clean-js ; rug clean",
+    "clean-js": "find . -type d \\( -path ./node_modules -o -path ./target \\) -prune -o -type f -name '*.js' -print0 | xargs -0 rm -f",
+    "compile": "tsc -p .",
+    "distclean": "npm run clean ; rm -rf node_modules",
+    "lint": "tslint '**/*.ts' --exclude 'node_modules/**' --exclude 'target/**' -t verbose",
     "mocha": "mocha --compilers ts:espower-typescript/guess 'mocha/**/*.ts'",
     "test": "npm run mocha && rug test"
   },
   "atomist": {
-    "requires": "[1.0.0-m.4,2.0.0)"
+    "requires": "[1.0.0-m.5,2.0.0)"
   }
 }

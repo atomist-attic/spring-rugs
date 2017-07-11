@@ -154,3 +154,17 @@ editor:
     branch: "master"
     sha: "4d2bc97*"
 
+---
+kind: "operation"
+client: "com.atomist:rug"
+version: "1.0.0-m.5"
+editor:
+  name: "UpdateSupportFiles"
+  group: "atomist"
+  artifact: "rug-rugs"
+  version: "0.32.1"
+  origin:
+    repo: "git@github.com:atomist/spring-rugs.git"
+    branch: "master"
+    sha: "313e59e*"
+

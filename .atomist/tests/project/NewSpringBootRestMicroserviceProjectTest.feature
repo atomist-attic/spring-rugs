@@ -44,11 +44,14 @@ Feature: NewSpringBootRestService generator should create Spring Boot REST servi
     Then the README should not contain Rug information
     Then the props file should exist
     Then the props file contains the server port
-    Then the LICENSE file should not exist
     Then the CHANGELOG file should exist
     Then the CHANGELOG file should not contain releases from this project
-    Then the code of conduct file should not exist
-    Then the Travis CI configuration should not exist
+    Then file at .gitattributes should exist
+    Then file at .gitattributes should contain .atomist.yml
+    Then file at .travis.yml should not exist
+    Then file at CODE_OF_CONDUCT.md should not exist
+    Then file at CONTRIBUTING.md should not exist
+    Then file at LICENSE should not exist
 
 
   Scenario: NewSpringBootRestService without description should create a new project
@@ -62,10 +65,14 @@ Feature: NewSpringBootRestService generator should create Spring Boot REST servi
     Then the README contains the project name
     Then the props file should exist
     Then the props file contains the server port
-    Then the LICENSE file should not exist
     Then the CHANGELOG file should exist
     Then the CHANGELOG file should not contain releases from this project
-    Then the code of conduct file should not exist
+    Then file at .gitattributes should exist
+    Then file at .gitattributes should contain .atomist.yml
+    Then file at .travis.yml should not exist
+    Then file at CODE_OF_CONDUCT.md should not exist
+    Then file at CONTRIBUTING.md should not exist
+    Then file at LICENSE should not exist
 
 
   Scenario: NewSpringBootRestService should fail when given an invalid parameter
