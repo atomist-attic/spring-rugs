@@ -1,7 +1,6 @@
 # Atomist 'spring-rugs'
 
 [![Build Status](https://travis-ci.org/atomist/spring-rugs.svg?branch=master)](https://travis-ci.org/atomist/spring-rugs)
-[![Slack Status](https://join.atomist.com/badge.svg)](https://join.atomist.com)
 
 This [Rug][rug] project contains a generator for a [Spring Boot][boot]
 [REST][rest] service project.
